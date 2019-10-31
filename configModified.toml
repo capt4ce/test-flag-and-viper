@@ -1,0 +1,12 @@
+apiHTTPPort = 3031
+apiRPCPort = "4000"
+apiReqTimeoutSec = 2
+configPath = "./"
+dbName = "zoobc.db"
+dbPath = "./"
+myAddress = "127.0.0.1"
+nodeKeyFile = "node_keys.json"
+ownerAccountAddress = "BCZEGOb3WNx3fDOVf9ZS4EjvOIv_UeW4TVBQJ_6tHKlE"
+peerPort = 8001
+proofOfOwnershipReqTimeoutSec = 2
+wellknownPeers = []
