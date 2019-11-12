@@ -1,12 +1,7 @@
 package subpackage
 
-import (
-	"fmt"
+import "flag"
 
-	"github.com/spf13/viper"
-)
-
-func PrintConfig() {
-	fmt.Println("dbpath ", viper.GetString("dbPath"))
-	fmt.Println("isDebug ", viper.GetBool("isDebug"))
+func PrintConfig() string {
+	return flag.Lookup("config-path").Value.(flag.Getter).Get().(string)
 }

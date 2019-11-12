@@ -180,26 +180,61 @@
 // 	}
 // }
 
+// package main
+
+// import (
+// 	"fmt"
+
+// 	"github.com/spf13/viper"
+// 	"github.com/zoobc/test/subpackage"
+// )
+
+// var ConfigFile = "./config.toml"
+
+// func init() {
+// 	viper.SetConfigFile(ConfigFile)
+// 	err := viper.ReadInConfig()
+// 	if err != nil {
+// 		fmt.Println(err)
+// 	}
+// 	viper.Set("isDebug", true)
+// }
+
+// func main() {
+// 	subpackage.PrintConfig()
+// }
+
 package main
 
 import (
-	"fmt"
+	"flag"
+	"time"
 
-	"github.com/spf13/viper"
+	tm "github.com/buger/goterm"
 	"github.com/zoobc/test/subpackage"
 )
 
-var ConfigFile = "./config.toml"
+var configPath string
 
 func init() {
-	viper.SetConfigFile(ConfigFile)
-	err := viper.ReadInConfig()
-	if err != nil {
-		fmt.Println(err)
-	}
-	viper.Set("isDebug", true)
+	flag.StringVar(&configPath, "config-path", "./resource", "Usage")
 }
 
 func main() {
-	subpackage.PrintConfig()
+	tm.Clear() // Clear current screen
+
+	flag.Parse()
+	for {
+		// By moving cursor to top-left position we ensure that console output
+		// will be overwritten each time, instead of adding new.
+		tm.MoveCursor(1, 1)
+
+		tm.Println("Current Time:", time.Now().Format(time.RFC1123))
+		tm.Println("httplog main       : ", configPath)
+		tm.Println("httplog subpackage : ", subpackage.PrintConfig())
+
+		tm.Flush() // Call it every time at the end of rendering
+
+		time.Sleep(time.Second)
+	}
 }
